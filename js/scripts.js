@@ -1,8 +1,3 @@
-/*
-Write a function that buids an HTML table with the data below. The table should have four columns:
-first name, last name, position, and year. If the player is a Senior, her information should be in bold.
-*/
-
 var players = [{
     first: 'Angela',
     last: 'Smith',
@@ -46,41 +41,7 @@ var players = [{
     year: 'Junior'
   }
 ];
-//Write your function here
-//initialize a variable for the HTML content your going to build
-var html = '';
-//get the empty table content area
-var tableContent = document.getElementById('table-content');
 
-//Write your function here
-function buildTable() {
-  //build table
-  var tbl = document.createElement("table");
-  //start with the table header
-  html += '<tr><th>First</th><th>Last</th><th>Position</th><th>Year</th></tr>';
-
-  /*Now write a for loop to populate the table using the data
-  /include logic to make the text bold when the player is a senior.
-  Write the loop here*/
-
-  for (i = 0; i < players.length; i++) {
-    if (players[i].year === 'Senior') {
-      html += '<tr><td><b>' + players[i].first + '</b></td><td><b>' + players[i].last + '</b></td><td><b>' + players[i].position + '</b></td><td><b>' + players[i].year + '</b></td></tr>';
-    } else {
-      html += '<tr><td>' + players[i].first + '</td><td>' + players[i].last + '</td><td>' + players[i].position + '</td><td>' + players[i].year;
-    }
-  }
-  /*Now, outside of the for loop, but still inside the entire buildTable function,
-  use the tableContent and html variables to display the results in the empty tableArea*/
-  tableContent.innerHTML = html;
-}
-buildTable();
-/*
-EXTRA CREDIT CHALLENGE (5 POINTS): Write a function that compares the list above with the list below,
-finds the players that made the All-State team, and displays a message with the results:
-"Congratulations to Springfield's 2018 North Carolina All-State honorees: ____."
-Display the message in a div below the table.
-Hint: You need two loops, one of which will be 'nested'.*/
 var allStars = [{
     first: 'Melanie',
     last: 'Akers',
@@ -124,3 +85,48 @@ var allStars = [{
     school: 'Springfield High School'
   }
 ];
+
+//initializes variable for the HTML content being built inside table
+var tableHTML = '';
+//gets the empty table content area
+var tableContent = document.getElementById('table-content');
+//initializes variable for HTML content being built inside list of all star players
+var allStarsHTML = '';
+//gets the empty div content area
+var elAllStarsDiv = document.getElementById('all-stars');
+
+function buildTable() {
+  //builds table
+  var tbl = document.createElement("table");
+  //table header
+  tableHTML += '<tr><th>First</th><th>Last</th><th>Position</th><th>Year</th></tr>';
+
+  /*Populates table using data. Includes logic to make the text bold when the player is a senior.*/
+
+  for (i = 0; i < players.length; i++) {
+    if (players[i].year === 'Senior') {
+      tableHTML += '<tr><td><b>' + players[i].first + '</b></td><td><b>' + players[i].last + '</b></td><td><b>' + players[i].position + '</b></td><td><b>' + players[i].year + '</b></td></tr>';
+    } else {
+      tableHTML += '<tr><td>' + players[i].first + '</td><td>' + players[i].last + '</td><td>' + players[i].position + '</td><td>' + players[i].year;
+    }
+  }
+  /*Displays the results in the empty tableArea*/
+  tableContent.innerHTML = tableHTML;
+}
+buildTable();
+
+/*Finds the players that made the All-State team, and displays a message with the results:
+"Congratulations to Springfield's 2018 North Carolina All-State honorees: ____."
+Displays the message in div below the table.*/
+function buildAllStarsList() {
+  for (i = 0; i < players.length; i++) {
+    for (j = 0; j < allStars.length; j++) {
+      if (players[i].last == allStars[j].last) {
+        allStarsHTML += '<li>' + players[i].first + ' ' + players[i].last;
+        allStarsHTML += '</li>';
+      }
+    }
+  }
+  elAllStarsDiv.innerHTML = "Congratulations to Springfield's 2018 North Carolina All-State honorees: <ul>" + allStarsHTML + '</ul>';
+}
+buildAllStarsList();
